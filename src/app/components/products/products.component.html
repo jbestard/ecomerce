@@ -1,0 +1,25 @@
+<div class="content" (window:resize)="onResize($event)">
+    <div class="col-xl-3 col-lg-4 col-sm-12 item" *ngFor="let p of products">
+      <mat-card >
+        <img mat-card-image src="{{urlBase + p.imagePath}}" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+          <mat-card-title>{{p.name}}</mat-card-title>
+          <mat-card-subtitle>{{conv(p.modifiedDate) | date: 'dd/MM/yyyy' }}</mat-card-subtitle>
+        </mat-card-content>
+        <mat-card-actions>
+          <button (click)="open(p.id)" class="btn-try" mat-raised-button color="primary">Try it</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div class="div-pagination">
+      <ngb-pagination [collectionSize]="totalProducts" [(page)]="page" [pageSize]="pageSize" [boundaryLinks]="true" (pageChange)=pageChange()></ngb-pagination>
+    </div>
+
+    <div *ngIf="scrollInfinite"
+      class="search-results"
+      infiniteScroll
+      [infiniteScrollDistance]="1.5"
+      [infiniteScrollThrottle]="150"
+      (scrolled)="onScroll()"
+    ></div>
+  </div>
